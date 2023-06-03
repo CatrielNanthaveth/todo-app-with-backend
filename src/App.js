@@ -3,7 +3,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import { Root, ErrorPage } from "./routes/index";
+import { Root, ErrorPage, Register } from "./routes/index";
 
 
 
@@ -18,6 +18,10 @@ const router = createBrowserRouter([
         
       }
     ]
+  },
+  {
+    path: "/register",
+    element: <Register />,
   }
 ])
 
