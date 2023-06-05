@@ -4,9 +4,8 @@ import {
 } from "react-router-dom";
 
 import { Root, ErrorPage, Register } from "./routes/index";
-
-
-
+import { RequireAuth } from "./components/requireAuth";
+import { Todo } from "./routes/todo";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +21,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/todo",
+    element: <RequireAuth><Todo /></RequireAuth>,
   }
 ])
 

@@ -2,6 +2,7 @@ import axios from 'axios';
 import { Formik } from 'formik'
 import React from 'react'
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2'
 
 export const Login = () => {
     return (
@@ -37,9 +38,28 @@ export const Login = () => {
 
                     axios.post('https://todo-api-310b.onrender.com/auth/signin', formData)
                         .then((res) => {
+                            Swal.fire({
+                                title: `¡Bienvenido!`,
+                                text: 'Has iniciado sesión.',
+                                icon: 'success',
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: '¡Gracias!',
+                                timer: 2000,
+                                timerProgressBar: true
+                            });
+                            localStorage.setItem("token", res.data.token);
                             console.log(res);
                         })
                         .catch((err) => {
+                            Swal.fire({
+                                title: 'Error',
+                                text: 'No has sido registrado',
+                                icon: 'error',
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: '¡:(!',
+                                timer: 2000,
+                                timerProgressBar: true
+                            });
                             console.log(err);
                         })
                         .finally(() => {
