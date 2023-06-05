@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { Formik } from 'formik'
 import React from 'react'
 import { Link } from 'react-router-dom';
@@ -8,13 +9,13 @@ export const Login = () => {
             <h1>¡Bienvenido!</h1>
 
             <Formik
-                initialValues={{ username: '', password: '' }}
+                initialValues={{ email: '', password: '' }}
                 validate={values => {
                     const errors = {};
-                    if (!values.username) {
-                        errors.username = '* Requerido';
-                    } else if (!/^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/i.test(values.username)) {
-                        errors.username = '* Usuario inválido';
+                    if (!values.email) {
+                        errors.email = '* Requerido';
+                    } else if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/i.test(values.email)) {
+                        errors.email = '* Email inválido';
                     }
 
                     if (!values.password) {
@@ -24,10 +25,26 @@ export const Login = () => {
                     return errors;
                 }}
                 onSubmit={(values, { setSubmitting }) => {
-                    setTimeout(() => {
-                        alert(JSON.stringify(values, null, 2));
-                        setSubmitting(false);
-                    }, 400);
+
+                    const formData = new URLSearchParams();
+                    formData.append('email', values.email);
+                    formData.append('password', values.password);
+
+                    console.log({
+                        email: values.email,
+                        password: values.password
+                    });
+
+                    axios.post('https://todo-api-310b.onrender.com/auth/signin', formData)
+                        .then((res) => {
+                            console.log(res);
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        })
+                        .finally(() => {
+                            setSubmitting(false);
+                        });
                 }}
             >
                 {({
@@ -39,16 +56,16 @@ export const Login = () => {
                     handleSubmit,
                     isSubmitting
                 }) => (
-                    <form className='login-form'>
-                        <p>Nombre de usuario</p>
+                    <form className='login-form' onSubmit={handleSubmit}>
+                        <p>Correo electrónico</p>
                         <input
-                            type='text'
-                            name='username'
+                            type='email'
+                            name='email'
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            value={values.username}
+                            value={values.email}
                         />
-                        <p className='error'>{errors.username && touched.username && errors.username}</p>
+                        <p className='error'>{errors.email && touched.email && errors.email}</p>
                         <p>Contraseña</p>
                         <input
                             type='password'
@@ -60,7 +77,7 @@ export const Login = () => {
                         <p className='error'>{errors.password && touched.password && errors.password}</p>
 
                         <p><i>¿Aún no estás <Link to="/register" id='to-register'>registrado</Link>?</i></p>
-                        <button type="submit" disabled={isSubmitting} className='submit-button'>
+                        <button type="submit" disabled={isSubmitting} className='submit-button' onClick={handleSubmit}>
                             Iniciar sesión
                         </button>
                     </form>

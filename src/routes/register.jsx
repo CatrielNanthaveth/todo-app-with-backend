@@ -1,12 +1,13 @@
 import { Formik } from 'formik'
 import React from 'react'
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 
 export const Register = () => {
     return (
         <div>
-            <div className='login-card'>
+            <div className='register-card'>
                 <h1>¡Bienvenido!</h1>
 
                 <Formik
@@ -35,10 +36,26 @@ export const Register = () => {
                         return errors;
                     }}
                     onSubmit={(values, { setSubmitting }) => {
-                        setTimeout(() => {
-                            alert(JSON.stringify(values, null, 2));
-                            setSubmitting(false);
-                        }, 400);
+                        const formData = new URLSearchParams();
+                        formData.append('email', values.email);
+                        formData.append('username', values.username);
+                        formData.append('password', values.password);
+    
+                        console.log({
+                            email: values.email,
+                            password: values.password
+                        });
+    
+                        axios.post('https://todo-api-310b.onrender.com/users', formData)
+                            .then((res) => {
+                                console.log(res);
+                            })
+                            .catch((err) => {
+                                console.log(err);
+                            })
+                            .finally(() => {
+                                setSubmitting(false);
+                            });
                     }}
                 >
                     {({
@@ -50,7 +67,7 @@ export const Register = () => {
                         handleSubmit,
                         isSubmitting
                     }) => (
-                        <form>
+                        <form className='register-form' onSubmit={handleSubmit}>
                             <p>Correo electrónico</p>
                             <input
                                 type='email'
@@ -79,8 +96,8 @@ export const Register = () => {
                             />
                             <p className='error'>{errors.password && touched.password && errors.password}</p>
 
-                            <p>Si ya estás registrado <Link to="..">inicia sesión.</Link></p>
-                            <button type="submit" disabled={isSubmitting}>
+                            <p>Si ya estás registrado <Link to=".." id='to-login'>inicia sesión.</Link></p>
+                            <button type="submit" className='submit-button' disabled={isSubmitting}>
                                 Registrarse
                             </button>
                         </form>
@@ -90,3 +107,4 @@ export const Register = () => {
         </div>
     )
 }
+
