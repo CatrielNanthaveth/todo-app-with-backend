@@ -1,10 +1,13 @@
 import { Formik } from 'formik'
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
 export const Register = () => {
+
+    const navigate = useNavigate();
+
     return (
         <div>
             <div className='register-card'>
@@ -70,6 +73,7 @@ export const Register = () => {
                                         });
 
                                         localStorage.setItem("token", res.data.token);
+                                        navigate('/todo')
                                         console.log(res);
                                     })
                                     .catch((err) => {

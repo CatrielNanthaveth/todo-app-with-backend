@@ -1,10 +1,12 @@
 import axios from 'axios';
 import { Formik } from 'formik'
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'
 
 export const Login = () => {
+
+    const navigate = useNavigate();
     return (
         <div className='login-card'>
             <h1>¡Bienvenido!</h1>
@@ -48,6 +50,7 @@ export const Login = () => {
                                 timerProgressBar: true
                             });
                             localStorage.setItem("token", res.data.token);
+                            navigate('/todo');
                             console.log(res);
                         })
                         .catch((err) => {
