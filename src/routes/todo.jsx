@@ -3,7 +3,7 @@ import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { Space, Table } from 'antd';
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
+import { CheckOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons'
 
 export const Todo = () => {
 
@@ -18,7 +18,8 @@ export const Todo = () => {
           task = {
             key: task.id,
             title: task.title,
-            description: task.description
+            description: task.description,
+            completed: task.completed
           }
         )
         setTasks(data)
@@ -35,13 +36,18 @@ export const Todo = () => {
         })
         console.error(err);
       })
-  }, [user.id]);
+  }, [user.id, tasks]);
 
   const columns = [
     {
       title: 'Título',
       dataIndex: 'title',
       key: 'title',
+      render: (text) => {
+        return (
+          <p>{text}</p>
+        );
+      }
     },
     {
       title: 'Descripción',
@@ -61,6 +67,18 @@ export const Todo = () => {
           </Space>
         )
       },
+    },
+    {
+      title: 'Completado',
+      dataIndex: 'completed',
+      key: 'completed',
+      render: (_, record) => (
+        <input
+          type="checkbox"
+          checked={record.completed}
+          onChange={e => handleCheck(e.target.checked, record)}
+        />
+      ),
     },
   ];
 
@@ -100,6 +118,45 @@ export const Todo = () => {
   const handleEdit = (record) => {
     //navigate('/backoffice/edit-news/' + record.key);
   }
+
+  const handleCheck = (checked, record) => {
+    const updatedTasks = tasks.map(task => 
+      task.id === record.key ? { ...task, completed: checked } : task
+    );
+    setTasks(updatedTasks);
+
+    console.log(record)
+    const formData = new URLSearchParams();
+    formData.append('title', record.title);
+    formData.append('description', record.description);
+    formData.append('completed', !record.completed);
+
+
+    axios.put(`https://todo-api-310b.onrender.com/tasks/${record.key}`, formData)
+      .then((res) => {
+        Swal.fire({
+          title: `¡Estado cambiado!`,
+          text: 'Has completado una tarea',
+          icon: 'success',
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: '¡:)!',
+          timer: 2000,
+          timerProgressBar: true
+        });
+      })
+      .catch((err) => {
+        Swal.fire({
+          title: "¡Error!",
+          text: "Algo ha salido mal",
+          icon: 'error',
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: '¡:(!',
+          timer: 2000,
+          timerProgressBar: true
+        });
+      })
+  };
+
   return (
     <div>
       <Table dataSource={tasks} columns={columns} />;
