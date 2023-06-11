@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { Space, Table } from 'antd';
+import { Card, Space, Table } from 'antd';
 import { CheckOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons'
 
 export const Todo = () => {
@@ -120,7 +120,7 @@ export const Todo = () => {
   }
 
   const handleCheck = (checked, record) => {
-    const updatedTasks = tasks.map(task => 
+    const updatedTasks = tasks.map(task =>
       task.id === record.key ? { ...task, completed: checked } : task
     );
     setTasks(updatedTasks);
@@ -159,7 +159,9 @@ export const Todo = () => {
 
   return (
     <div>
-      <Table dataSource={tasks} columns={columns} />;
+
+        <Table dataSource={tasks} columns={columns} id='tasks-table'/>;
+
     </div>
   )
 }
