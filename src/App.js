@@ -3,7 +3,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import { Root, ErrorPage, Register } from "./routes/index";
+import { Root, ErrorPage, Register, Create } from "./routes/index";
 import { RequireAuth } from "./components/requireAuth";
 import { Todo } from "./routes/todo";
 import { Edit } from "./routes/edit";
@@ -28,8 +28,12 @@ const router = createBrowserRouter([
     element: <RequireAuth><Todo /></RequireAuth>,
   },
   {
-    path: "/todo",
+    path: "/edit-task/:id",
     element: <RequireAuth><Edit /></RequireAuth>,
+  },
+  {
+    path: "/create",
+    element: <RequireAuth><Create /></RequireAuth>,
   }
 ])
 

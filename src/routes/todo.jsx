@@ -2,10 +2,13 @@ import { useEffect, useState } from 'react';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { Card, Space, Table } from 'antd';
-import { CheckOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons'
+import { Space, Table } from 'antd';
+import { CheckCircleOutlined, DeleteOutlined, EditOutlined, InfoCircleOutlined, WarningOutlined } from '@ant-design/icons'
+import { Link, useNavigate } from 'react-router-dom';
 
 export const Todo = () => {
+
+  const navigate = useNavigate();
 
   const [tasks, setTasks] = useState([]);
 
@@ -43,6 +46,8 @@ export const Todo = () => {
       title: 'Título',
       dataIndex: 'title',
       key: 'title',
+      fixed: 'left',
+      width: '80px',
       render: (text) => {
         return (
           <p>{text}</p>
@@ -50,15 +55,16 @@ export const Todo = () => {
       }
     },
     {
-      title: 'Descripción',
+      title: <InfoCircleOutlined />,
       dataIndex: 'description',
       key: 'description',
     },
     {
-      title: 'Actions',
+      title: <WarningOutlined />,
       dataIndex: 'actions',
       key: 'actions',
       fixed: 'right',
+      width: '60px',
       render: (_, record) => {
         return (
           <Space size="middle">
@@ -69,9 +75,11 @@ export const Todo = () => {
       },
     },
     {
-      title: 'Completado',
+      title: <CheckCircleOutlined />,
       dataIndex: 'completed',
       key: 'completed',
+      fixed: 'right',
+      width: '40px',
       render: (_, record) => (
         <input
           type="checkbox"
@@ -116,8 +124,8 @@ export const Todo = () => {
   };
 
   const handleEdit = (record) => {
-    //navigate('/backoffice/edit-news/' + record.key);
-  }
+    navigate('/edit-task/' + record.key);
+  };
 
   const handleCheck = (checked, record) => {
     const updatedTasks = tasks.map(task =>
@@ -158,10 +166,11 @@ export const Todo = () => {
   };
 
   return (
-    <div>
-
-        <Table dataSource={tasks} columns={columns} id='tasks-table'/>;
-
+    <div id='table-container'>
+      <h1 className='tasks-text'>Tareas</h1>
+      <Link className='btn' to='../' onClick={() => localStorage.removeItem('token')}>Cerrar sesión</Link>
+      <Table scroll={{x: 600,}} dataSource={tasks} columns={columns} id='tasks-table' size='small' />
+      <Link to='/create' className='btn'>Agregar Tarea</Link>
     </div>
   )
 }

@@ -2,6 +2,7 @@
 @import './routes/login';
 @import './routes/register';
 @import './routes/todo';
+@import './routes/edit';
 @import './variables';
 
 body{
@@ -13,6 +14,12 @@ body{
     background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
+}
+
+.btn {
+    background-color: white;
+    border-radius: 8px;
+    padding: 10px;
 }
 
 @keyframes gradient {
