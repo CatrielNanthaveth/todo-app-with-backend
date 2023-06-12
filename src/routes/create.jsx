@@ -11,7 +11,7 @@ export const Create = () => {
   const { id } = jwtDecode(localStorage.getItem('token'));
 
   return (
-    <div id='edit-container'>
+    <div className='container'>
 
       <Link to='/todo' className='btn'>Volver</Link>
       <h1>Crea una tarea</h1>

@@ -1,44 +1,42 @@
 @import '../variables.scss';
 
-@media screen and (max-width: 1023px) {
-    .login-card {
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 2em;
-    }
+.login-card {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2em;
+}
 
-    .login-form {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1em;
-    }
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+}
 
-    .error {
-        color: $error-color;
-        font-size: small;
-        font-family: Arial, Helvetica, sans-serif;
-    }
+.error {
+    color: $error-color;
+    font-size: small;
+    font-family: Arial, Helvetica, sans-serif;
+}
 
-    #to-register {
-        color: $error-color;
-    }
+#to-register {
+    color: $error-color;
+}
 
-    .submit-button {
+.submit-button {
+    border-radius: 6px;
+    border-style: none;
+    background-color: white;
+    height: 2em;
+    width: 10em;
+}
+
+form {
+    input {
         border-radius: 6px;
         border-style: none;
-        background-color: white;
-        height: 2em;
-        width: 10em;
-    }
-
-    form {
-        input {
-            border-radius: 6px;
-            border-style: none;
-        }
     }
 }

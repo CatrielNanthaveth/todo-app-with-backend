@@ -1,8 +1,6 @@
 @import './config';
 @import './routes/login';
 @import './routes/register';
-@import './routes/todo';
-@import './routes/edit';
 @import './variables';
 
 body{
@@ -47,4 +45,17 @@ iframe{
 :any-link {
     color: black;
     text-decoration: none;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 90vw;
+    background-color: rgb(244, 244, 244);
+    padding: 20px;
+    border-radius: 20px;
+    margin: 50px auto;
+    text-align: center;
+    gap: 1em;
+    justify-content: center;
 }

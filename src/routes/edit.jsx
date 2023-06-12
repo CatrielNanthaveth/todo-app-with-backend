@@ -10,7 +10,7 @@ export const Edit = () => {
   const { id } = useParams();
 
   return (
-    <div id='edit-container'>
+    <div className='container'>
 
       <Link to='/todo' className='btn'>Volver</Link>
       <h1>Edita tu tarea</h1>

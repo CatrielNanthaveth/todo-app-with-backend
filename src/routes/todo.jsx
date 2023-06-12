@@ -166,7 +166,7 @@ export const Todo = () => {
   };
 
   return (
-    <div id='table-container'>
+    <div className='container'>
       <h1 className='tasks-text'>Tareas</h1>
       <Link className='btn' to='../' onClick={() => localStorage.removeItem('token')}>Cerrar sesión</Link>
       <Table scroll={{x: 600,}} dataSource={tasks} columns={columns} id='tasks-table' size='small' />
