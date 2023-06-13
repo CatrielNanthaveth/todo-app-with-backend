@@ -2,7 +2,6 @@
   "name": "todo-app-with-backend",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://catrielnanthaveth.github.io/todo-app-with-backend/",
   "dependencies": {
     "@ant-design/icons": "^5.1.4",
     "@testing-library/jest-dom": "^5.16.5",
