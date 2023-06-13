@@ -20,7 +20,7 @@ export const Register = () => {
 
                         if (!values.email) {
                             errors.email = 'Requerido';
-                        } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(values.email)) {
+                        } else if (!/^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/g.test(values.email)) {
                             errors.email = 'Correo Inválido';
                         }
 
